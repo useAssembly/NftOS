@@ -6,6 +6,11 @@ export const Text: ComponentStyleConfig = {
       fontSize: "0.875rem",
       lineHeight: "1.25rem",
     },
+    md: {
+      fontSize: "16px",
+      lineHeight: "150%",
+      fontWeight: "medium",
+    },
   },
   baseStyle: {
     color: "gray.900",
