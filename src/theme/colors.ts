@@ -5,4 +5,7 @@ export const colors: Colors = {
     300: "#CBD5E0",
     900: "#171923",
   },
+  teal: {
+    500: "#319795",
+  },
 };
