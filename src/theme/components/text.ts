@@ -4,7 +4,7 @@ export const Text: ComponentStyleConfig = {
   sizes: {
     sm: {
       fontSize: "0.875rem",
-      lineHeight: "143%",
+      lineHeight: "1.25rem",
     },
   },
   baseStyle: {

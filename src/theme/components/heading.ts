@@ -11,4 +11,7 @@ export const Heading: ComponentStyleConfig = {
   defaultProps: {
     size: "3xl",
   },
+  baseStyle: {
+    color: "gray.900",
+  },
 };

@@ -2,6 +2,8 @@ import { Heading, Text } from "@chakra-ui/react";
 
 import { Card, Content, Header } from "@/common/components/Card";
 import { PageHead } from "@/common/components/PageHead";
+import { MintCard } from "@/common/components/MintCard";
+import { MintIcon } from "@/common/components/CustomIcon";
 
 export default function Home() {
   return (
@@ -12,17 +14,7 @@ export default function Home() {
         name="Mint"
       />
       <section className="grid place-content-center h-full">
-        <Card>
-          <Header>
-            <Heading color="gray.900">Mint an Airfoil Pass</Heading>
-          </Header>
-          <Content>
-            <Text size="sm">
-              You don’t currently own an Airfoil pass. <br /> Please mint one
-              with the button below.
-            </Text>
-          </Content>
-        </Card>
+        <MintCard status="failure" />
       </section>
     </div>
   );
