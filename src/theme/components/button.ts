@@ -16,7 +16,14 @@ export const Button: ComponentStyleConfig = {
       color: "white",
       bgColor: "teal.500",
       _hover: {
-        bgColor: "teal.500",
+        opacity: 0.8,
+        _disabled: {
+          opacity: 0.5,
+          bgColor: "teal.500",
+        },
+      },
+      _disabled: {
+        opacity: 0.5,
       },
     },
   },
