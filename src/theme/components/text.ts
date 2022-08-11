@@ -7,9 +7,9 @@ export const Text: ComponentStyleConfig = {
       lineHeight: "1.25rem",
     },
     md: {
-      fontSize: "16px",
-      lineHeight: "150%",
-      fontWeight: "medium",
+      fontSize: "1rem",
+      lineHeight: "1.5rem",
+      fontWeight: 500,
     },
   },
   baseStyle: {
