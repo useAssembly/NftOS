@@ -42,13 +42,25 @@ export const CrossIcon = ({ ...props }: Props) => (
 );
 
 export const MintIcon = ({ ...props }: Props) => (
-  <CustomIcon height={18} viewBox="0 0 18 18" width={18} {...props}>
+  <CustomIcon
+    fill="#9F7AEA"
+    height={18}
+    viewBox="0 0 18 18"
+    width={18}
+    {...props}
+  >
     <MintSvg />
   </CustomIcon>
 );
 
 export const TickIcon = ({ ...props }: Props) => (
-  <CustomIcon height={13} viewBox="0 0 18 13" width={18} {...props}>
+  <CustomIcon
+    fill="#9F7AEA"
+    height={13}
+    viewBox="0 0 18 13"
+    width={18}
+    {...props}
+  >
     <TickSvg />
   </CustomIcon>
 );
