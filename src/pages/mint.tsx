@@ -1,11 +1,10 @@
-import { Heading, Text } from "@chakra-ui/react";
+import { useState } from "react";
 
-import { Card, Content, Header } from "@/common/components/Card";
+import { MintCard, MintStatus } from "@/common/components/MintCard";
 import { PageHead } from "@/common/components/PageHead";
-import { MintCard } from "@/common/components/MintCard";
-import { MintIcon } from "@/common/components/CustomIcon";
 
 export default function Home() {
+  const [mintStatus, setMintStatus] = useState<MintStatus>("default");
   return (
     <div className="h-full">
       <PageHead
@@ -14,7 +13,7 @@ export default function Home() {
         name="Mint"
       />
       <section className="grid place-content-center h-full">
-        <MintCard status="failure" />
+        <MintCard mintStatus={mintStatus} />
       </section>
     </div>
   );
