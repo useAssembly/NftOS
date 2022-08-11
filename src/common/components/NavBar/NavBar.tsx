@@ -14,12 +14,13 @@ export const NavBar = () => {
       <Box
         borderBottom="1px"
         borderColor="gray.300"
-        fontSize="xl"
         mb={!isHomePage ? 4 : 8} // If home page, add more margin bottom
         pl="148px"
         py={4}
       >
-        <Text textTransform="capitalize">{name.replace("-", " ")}</Text>
+        <Text fontSize="xl" textTransform="capitalize">
+          {name.replace("-", " ")}
+        </Text>
       </Box>
       {!isHomePage ? (
         <Link href={"/"}>
