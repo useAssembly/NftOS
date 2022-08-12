@@ -2,6 +2,7 @@ import { Colors } from "@chakra-ui/react";
 
 export const colors: Colors = {
   gray: {
+    50: "#F7FAFC",
     200: "#E2E8F0",
     300: "#CBD5E0",
     400: "#A0AEC0",
@@ -18,8 +19,12 @@ export const colors: Colors = {
     500: "#38A169",
   },
   blue: {
+    50: "#EBF8FF",
     100: "#BEE3F8",
+    200: "#90CDF4",
     500: "#3182CE",
+    700: "#2C5282",
+    800: "#2A4365",
   },
   purple: {
     400: "#9F7AEA",
