@@ -1,8 +1,15 @@
 import { Box, Text } from "@chakra-ui/react";
 
 export const Footer = () => (
-  <Box bottom="0px" pb="16px" pl="148px" position="fixed" width="100%">
-    <Text color="gray.400" size="md">
+  <Box
+    borderTop="1px"
+    borderTopColor="gray.300"
+    bottom="0px"
+    position="fixed"
+    py={4}
+    width="100%"
+  >
+    <Text color="gray.400" pl="148px" size="md">
       © Airfoil nftOS
     </Text>
   </Box>
