@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 
+import { Footer } from "../Footer";
 import { NavBar } from "../NavBar";
 
 export const CoreLayout = ({ children }) => {
@@ -16,7 +17,7 @@ export const CoreLayout = ({ children }) => {
       <NavBar />
       {children}
       {/* </main> */}
-      {/* <Footer className="h-[32px] bottom-0 w-full" /> */}
+      <Footer />
     </Box>
   );
 };
