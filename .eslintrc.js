@@ -13,7 +13,7 @@ module.exports = {
       },
     ],
     "import/order": [
-      "warn",
+      "error",
       {
         pathGroups: [
           {
@@ -28,12 +28,15 @@ module.exports = {
           },
         ],
         "newlines-between": "always",
+        alphabetize: {
+          order: "asc",
+        },
       },
     ],
-    "simple-import-sort/exports": "error",
     "import/first": "error",
-    "import/newline-after-import": "error",
+    "import/newline-after-import": ["error", { count: 1 }],
     "import/no-duplicates": "error",
+    "simple-import-sort/exports": "error",
   },
   root: true,
   parser: "@typescript-eslint/parser",

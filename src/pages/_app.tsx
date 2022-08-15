@@ -4,8 +4,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 import Head from "next/head";
 
 import { CoreLayout } from "@/common/components/CoreLayout";
-import { PageHead } from "@/common/components/PageHead";
 import { ChakraFonts } from "@/common/components/CustomFont";
+import { PageHead } from "@/common/components/PageHead";
 
 import theme from "@/theme";
 
