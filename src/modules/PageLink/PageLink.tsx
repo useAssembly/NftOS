@@ -30,7 +30,7 @@ export const PageLink: FunctionComponent<Props> = ({
           <>
             <Header marginBottom={"36px"}>{icon}</Header>
             <Content>
-              <Text size="xxxl">{label}</Text>
+              <Text size="3xl">{label}</Text>
               <Text color="gray.500" size="sm">
                 {description}
               </Text>
