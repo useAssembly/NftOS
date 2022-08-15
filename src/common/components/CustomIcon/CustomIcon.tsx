@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 
 import CrossSvg from "./svg/Cross";
+import LightningSvg from "./svg/Lightning";
 import MintSvg from "./svg/Mint";
 import TickSvg from "./svg/Tick";
 
@@ -38,6 +39,18 @@ export const CustomIcon = (props: PropsWithChildren<Props>): JSX.Element => {
 export const CrossIcon = ({ ...props }: Props) => (
   <CustomIcon height={24} viewBox="0 0 24 24" width={24} {...props}>
     <CrossSvg />
+  </CustomIcon>
+);
+
+export const LightningIcon = ({ ...props }: Props) => (
+  <CustomIcon
+    fill="#D69E2E"
+    height={24}
+    viewBox="0 0 24 24"
+    width={24}
+    {...props}
+  >
+    <LightningSvg />
   </CustomIcon>
 );
 
