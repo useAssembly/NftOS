@@ -16,7 +16,7 @@ const MintPage = () => {
 
   const claimNFT = async () => {
     setMintStatus("pending");
-    return nftDropContract?.claim[1];
+    return nftDropContract?.claim(1);
   };
 
   const triggerClaimNft = async () => {
