@@ -1,4 +1,4 @@
-import { Badge, Box, Button, Text, useToken } from "@chakra-ui/react";
+import { Badge, Box, Button, Text, useToken, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 
 import { LightningIcon } from "../CustomIcon";
@@ -30,16 +30,11 @@ export const NFT = ({
 }: NFTProps) => {
   const [gray600] = useToken("colors", ["gray.600"]);
   return (
-    <Box borderTopRadius={16} height={IMAGE_SIZE} position="relative">
-      <Image alt="nft" height={IMAGE_SIZE} src={nftImg} width={IMAGE_SIZE} />
-      <Box
-        left="50%"
-        position="absolute"
-        rowGap={1}
-        top="calc(100% - 1px)" // 1px is the border-top
-        transform={`translateX(-50%)`}
-        width="140px"
-      >
+    <VStack borderTopRadius={16} position="relative" spacing="-1px">
+      <Box height={IMAGE_SIZE}>
+        <Image alt="nft" height={IMAGE_SIZE} src={nftImg} width={IMAGE_SIZE} />
+      </Box>
+      <Box rowGap={1} width="140px">
         <Button
           color="gray.700"
           height={staked ? 9 : 10}
@@ -61,6 +56,6 @@ export const NFT = ({
           </Box>
         ) : null}
       </Box>
-    </Box>
+    </VStack>
   );
 };
