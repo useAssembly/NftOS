@@ -50,15 +50,17 @@ export type MintStatus = "success" | "failure" | "pending" | "default";
 interface Props {
   mintStatus: MintStatus;
   setMintStatus: (status: MintStatus) => void;
+  triggerClaimNft: () => void;
 }
 
 export const MintCard: FunctionComponent<Props> = ({
   mintStatus,
   setMintStatus,
+  triggerClaimNft,
 }) => {
   const handleMinting = async () => {
     setMintStatus("pending");
-    await new Promise((res) => setTimeout(res, 2000)); // simulate API fetch
+    await triggerClaimNft(); // simulate API fetch
     setMintStatus("success");
   };
 
