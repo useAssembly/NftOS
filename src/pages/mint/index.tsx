@@ -1,3 +1,4 @@
+import { Center } from "@chakra-ui/react";
 import { useState } from "react";
 
 import { PageHead } from "@/common/components/PageHead";
@@ -14,9 +15,9 @@ const MintPage = () => {
         description="Mint page description"
         name="Mint"
       />
-      <section className="flex place-content-center h-full">
+      <Center height={"calc(100vh - 176px)"}>
         <MintCard mintStatus={mintStatus} setMintStatus={setMintStatus} />
-      </section>
+      </Center>
     </div>
   );
 };
