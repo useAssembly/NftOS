@@ -17,17 +17,17 @@ export const StatisticCard: FunctionComponent<Props> = ({
   return (
     <Card px={6} py={5}>
       <Header minWidth={177} textAlign="left">
-        <Text color="gray.700" size="sm">
+        <Text color="gray.700" fontWeight={500} size="sm">
           {header}
         </Text>
       </Header>
       <Content minWidth={177} mt={6} textAlign="left">
-        <Text color="gray.700" size="4xl">
+        <Text color="gray.700" fontWeight={500} size="4xl">
           {content}
         </Text>
       </Content>
       <Footer minWidth={177} mt={1} textAlign="left">
-        <Text color="gray.700" opacity={0.8} size="sm">
+        <Text color="gray.700" fontWeight={500} opacity={0.8} size="sm">
           {footer}
         </Text>
       </Footer>

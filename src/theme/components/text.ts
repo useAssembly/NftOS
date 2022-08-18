@@ -37,6 +37,5 @@ export const Text: ComponentStyleConfig = {
   },
   baseStyle: {
     color: "gray.900",
-    fontWeight: 500,
   },
 };
