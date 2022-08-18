@@ -52,7 +52,7 @@ export const NFT = ({
         </Button>
         {staked ? (
           <Box textAlign="center">
-            <Badge width="">{`+ ${stakedAmount} \$${tokenName}`}</Badge>
+            <Badge color="gray.800">{`+ ${stakedAmount} \$${tokenName}`}</Badge>
           </Box>
         ) : null}
       </Box>
