@@ -4,13 +4,13 @@ import { FunctionComponent } from "react";
 import { Card, Content, Footer, Header } from "@/common/components/Card";
 
 interface Props {
-  title: string | React.ReactNode;
-  mainStats: string | React.ReactNode;
-  footerStats: string | React.ReactNode;
+  label: React.ReactNode;
+  mainStats: React.ReactNode;
+  footerStats: React.ReactNode;
 }
 
 export const StatisticCard: FunctionComponent<Props> = ({
-  title,
+  label,
   mainStats,
   footerStats,
 }) => {
@@ -18,7 +18,7 @@ export const StatisticCard: FunctionComponent<Props> = ({
     <Card px={6} py={5}>
       <Header minWidth={177} textAlign="left">
         <Text color="gray.700" fontWeight={500} size="sm">
-          {title}
+          {label}
         </Text>
       </Header>
       <Content minWidth={177} mt={6} textAlign="left">
