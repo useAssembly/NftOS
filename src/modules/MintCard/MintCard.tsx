@@ -60,8 +60,7 @@ export const MintCard: FunctionComponent<Props> = ({
 }) => {
   const handleMinting = async () => {
     setMintStatus("pending");
-    await triggerClaimNft(); // simulate API fetch
-    setMintStatus("success");
+    await triggerClaimNft();
   };
 
   const status = mintStatus;
