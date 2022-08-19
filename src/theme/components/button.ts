@@ -7,8 +7,13 @@ export const Button: ComponentStyleConfig = {
       paddingX: 3,
       height: "37px",
       fontSize: "xs",
-      lineHeight: "16px",
       borderRadius: "lg",
+    },
+    md: {
+      paddingY: 4,
+      paddingX: 2.5,
+      fontSize: "md",
+      borderRadius: "md",
     },
   },
   variants: {
@@ -25,6 +30,11 @@ export const Button: ComponentStyleConfig = {
       _disabled: {
         opacity: 0.5,
       },
+    },
+    outline: {
+      color: "gray.200",
+      bgColor: "transparent",
+      borderColor: "gray.200",
     },
   },
   defaultProps: {

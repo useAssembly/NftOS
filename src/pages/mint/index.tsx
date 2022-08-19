@@ -1,3 +1,4 @@
+import { Center } from "@chakra-ui/react";
 import { useAddress, useNFTDrop } from "@thirdweb-dev/react";
 import { useState } from "react";
 
@@ -38,7 +39,7 @@ const MintPage = () => {
         description="Mint page description"
         name="Mint"
       />
-      <section className="flex place-content-center h-full">
+      <Center height={"calc(100vh - 176px)"}>
         {address ? (
           <MintCard
             mintStatus={mintStatus}
@@ -48,7 +49,7 @@ const MintPage = () => {
         ) : (
           <WalletConnect />
         )}
-      </section>
+      </Center>
     </div>
   );
 };

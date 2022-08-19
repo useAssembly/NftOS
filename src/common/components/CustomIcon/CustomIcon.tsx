@@ -4,6 +4,7 @@ import CrossSvg from "./svg/Cross";
 import LightningSvg from "./svg/Lightning";
 import MintSvg from "./svg/Mint";
 import TickSvg from "./svg/Tick";
+import UpArrowSvg from "./svg/UpArrow";
 
 interface Props extends ComponentPropsWithoutRef<"svg"> {
   size?: number | string; // width and height will both be set as the same value
@@ -75,5 +76,16 @@ export const TickIcon = ({ ...props }: Props) => (
     {...props}
   >
     <TickSvg />
+  </CustomIcon>
+);
+export const UpArrowIcon = ({ ...props }: Props) => (
+  <CustomIcon
+    fill="#38A169"
+    height={24}
+    viewBox="0 0 24 24"
+    width={24}
+    {...props}
+  >
+    <UpArrowSvg />
   </CustomIcon>
 );

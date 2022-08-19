@@ -14,7 +14,7 @@ export const NavBar = () => {
       <Box
         borderBottom="1px"
         borderColor="gray.300"
-        mb={!isHomePage ? 4 : 8} // If home page, add more margin bottom
+        mb={!isHomePage ? 0 : 4} // If home page, add more margin bottom
         pl="148px"
         py={4}
       >
@@ -23,11 +23,13 @@ export const NavBar = () => {
         </Text>
       </Box>
       {!isHomePage ? (
-        <Link href={"/"}>
-          <Text cursor="pointer" pl="148px">
-            {"<- Back home"}
-          </Text>
-        </Link>
+        <Box py={4}>
+          <Link href={"/"}>
+            <Text cursor="pointer" pl="148px">
+              {"<- Back home"}
+            </Text>
+          </Link>
+        </Box>
       ) : null}
     </>
   );
