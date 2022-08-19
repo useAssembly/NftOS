@@ -11,7 +11,7 @@ const info = {
         Something went wrong. <br /> Please try again!
       </>
     ),
-    heading: "Mint an Airfoil pass",
+    heading: "An error has occured",
     icon: <MintIcon />,
     buttonLabel: "Try Again",
   },
