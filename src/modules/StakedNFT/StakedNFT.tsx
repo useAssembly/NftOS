@@ -1,4 +1,11 @@
-import { Box, Center, Flex, HStack, Spinner, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  HStack,
+  SimpleGrid,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 
 import { Card, Content, Header } from "@/common/components/Card";
 import { UpArrowIcon } from "@/common/components/CustomIcon";
@@ -18,7 +25,7 @@ export const StakedNFT = ({ isLoadingNfts, stakedNfts }) => {
         </HStack>
       </Header>
       <Content>
-        <Flex justifyContent="space-around">
+        <SimpleGrid minChildWidth="120px" spacing="50px">
           {isLoadingNfts ? (
             <Center height={192}>
               <Spinner color="gray.600" />
@@ -34,7 +41,7 @@ export const StakedNFT = ({ isLoadingNfts, stakedNfts }) => {
               />
             ))
           )}
-        </Flex>
+        </SimpleGrid>
       </Content>
     </Card>
   );
