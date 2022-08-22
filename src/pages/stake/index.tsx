@@ -6,7 +6,7 @@ import { PageHead } from "@/common/components/PageHead";
 import { WalletConnect } from "@/common/components/WalletConnect";
 import { loadStakedNfts } from "@/common/functions/stake";
 
-import { StakedNFT } from "@/modules/\bStakedNFT";
+import { StakedNFT } from "@/modules/StakedNFT";
 import { StatisticCard } from "@/modules/StatisticCard";
 import { UnstakedNFT } from "@/modules/UnstakedNFT";
 
