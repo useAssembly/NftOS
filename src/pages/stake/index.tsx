@@ -75,13 +75,17 @@ const StakePage = () => {
               <Heading mb={4} size={"2xl"}>
                 Your wallet
               </Heading>
-              <HStack align={"flex-start"} spacing={4}>
+              <Flex
+                align={"flex-start"}
+                flexDir={{ md: "row", sm: "column" }}
+                gap={4}
+              >
                 <UnstakedNFT />
                 <StakedNFT
                   isLoadingNfts={isLoadingNfts}
                   stakedNfts={stakedNfts}
                 />
-              </HStack>
+              </Flex>
             </Box>
           </>
         ) : (

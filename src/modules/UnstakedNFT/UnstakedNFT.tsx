@@ -7,6 +7,8 @@ import {
   Center,
   CloseButton,
   Flex,
+  Grid,
+  SimpleGrid,
   Spinner,
   Text,
   useDisclosure,
@@ -77,11 +79,11 @@ export const UnstakedNFT = () => {
             />
           </Alert>
         ) : null}
-        <Flex justifyContent="space-around">
+        <SimpleGrid minChildWidth="120px" spacing="50px">
           {nfts.map((item, index) => (
             <NFT key={index} nftImg={item.metadata.image} staked={false} />
           ))}
-        </Flex>
+        </SimpleGrid>
       </>
     ) : (
       <Center marginY={16}>
