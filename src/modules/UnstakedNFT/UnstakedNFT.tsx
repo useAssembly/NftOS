@@ -4,34 +4,58 @@ import {
   AlertIcon,
   AlertTitle,
   Box,
+  Center,
   CloseButton,
   Flex,
+  Spinner,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import { useAddress, useNFTDrop } from "@thirdweb-dev/react";
+import { useEffect, useState } from "react";
 
-import { Card, Header, Content } from "@/common/components/Card";
+import { Card, Content, Header } from "@/common/components/Card";
 import { NFT } from "@/common/components/NFT";
-
-const nftImages = [
-  "/assets/images/black_circle.png",
-  "/assets/images/nft1.png",
-  "/assets/images/nft2.png",
-];
 
 export const UnstakedNFT = () => {
   const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
+  const [nfts, setNfts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+  const walletAddress = useAddress();
+  const nftDropContract = useNFTDrop(
+    process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS
+  );
 
-  return (
-    <Card width="600px">
-      <Header mb={4}>
-        <Text color="black" fontWeight={600}>
-          Unstaked
-        </Text>
-      </Header>
-      <Content>
-        {isOpen ? (
+  const fetchOwnedNft = async () => {
+    setIsLoading(true);
+    setErrMsg("");
+    try {
+      const userOwnedNfts = await nftDropContract.getOwned(walletAddress);
+      setNfts(userOwnedNfts);
+    } catch (error) {
+      setNfts([]);
+      setErrMsg(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (walletAddress) {
+      fetchOwnedNft();
+    } else {
+      setErrMsg("Please connect to wallet to see NFTs");
+    }
+  }, [walletAddress]);
+
+  const renderCardContent = () => {
+    if (nfts.length < 1 && !isLoading) {
+      return <Text>Not owned any NFTs</Text>;
+    }
+    return !isLoading ? (
+      <>
+        {isOpen && nfts.length > 0 ? (
           <Alert
             justifyContent="space-between"
             mb={4}
@@ -55,12 +79,27 @@ export const UnstakedNFT = () => {
           </Alert>
         ) : null}
         <Flex justifyContent="space-around">
-          {Array(3)
-            .fill(0)
-            .map((_, index) => (
-              <NFT key={index} nftImg={nftImages[index]} staked={false} />
-            ))}
+          {nfts.map((item, index) => (
+            <NFT key={index} nftImg={item.metadata.image} staked={false} />
+          ))}
         </Flex>
+      </>
+    ) : (
+      <Center marginY={16}>
+        <Spinner />
+      </Center>
+    );
+  };
+
+  return (
+    <Card width="600px">
+      <Header mb={4}>
+        <Text color="black" fontWeight={600}>
+          Unstaked
+        </Text>
+      </Header>
+      <Content>
+        {errMsg ? <Text color="red">{errMsg}</Text> : renderCardContent()}
       </Content>
     </Card>
   );
