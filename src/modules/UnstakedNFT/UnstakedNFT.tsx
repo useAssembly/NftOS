@@ -27,27 +27,26 @@ export const UnstakedNFT = () => {
     process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS
   );
 
-  const fetchOwnedNft = async () => {
-    setIsLoading(true);
-    setErrMsg("");
-    try {
-      const userOwnedNfts = await nftDropContract.getOwned(walletAddress);
-      setNfts(userOwnedNfts);
-    } catch (error) {
-      setNfts([]);
-      setErrMsg(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchOwnedNft = async () => {
+      setIsLoading(true);
+      setErrMsg("");
+      try {
+        const userOwnedNfts = await nftDropContract.getOwned(walletAddress);
+        setNfts(userOwnedNfts);
+      } catch (error) {
+        setNfts([]);
+        setErrMsg(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     if (walletAddress) {
       fetchOwnedNft();
     } else {
       setErrMsg("Please connect to wallet to see NFTs");
     }
-  }, [walletAddress]);
+  }, [walletAddress, nftDropContract]);
 
   const renderCardContent = () => {
     if (nfts.length < 1 && !isLoading) {
