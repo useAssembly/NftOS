@@ -4,15 +4,14 @@ import { useState } from "react";
 
 import { PageHead } from "@/common/components/PageHead";
 import { WalletConnect } from "@/common/components/WalletConnect";
+import { NFT_ADDRESS } from "@/common/configs";
 
 import { MintCard, MintStatus } from "@/modules/MintCard";
 
 const MintPage = () => {
   const [mintStatus, setMintStatus] = useState<MintStatus>("default");
 
-  const nftDropContract = useNFTDrop(
-    process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS
-  );
+  const nftDropContract = useNFTDrop(NFT_ADDRESS);
   const address = useAddress();
 
   const claimNFT = async () => {

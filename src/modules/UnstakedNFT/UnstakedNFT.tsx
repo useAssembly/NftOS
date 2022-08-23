@@ -7,48 +7,24 @@ import {
   Center,
   CloseButton,
   Flex,
-  Grid,
   SimpleGrid,
   Spinner,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useAddress, useNFTDrop } from "@thirdweb-dev/react";
-import { useEffect, useState } from "react";
+import { BigNumber } from "ethers";
 
 import { Card, Content, Header } from "@/common/components/Card";
 import { NFT } from "@/common/components/NFT";
 
-export const UnstakedNFT = () => {
+type UnStakedNFTProps = {
+  isLoading: boolean;
+  nfts: any[];
+  onStake: (id: BigNumber) => void;
+};
+export const UnstakedNFT = ({ nfts, isLoading, onStake }: UnStakedNFTProps) => {
   const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
-  const [nfts, setNfts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errMsg, setErrMsg] = useState("");
-  const walletAddress = useAddress();
-  const nftDropContract = useNFTDrop(
-    process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS
-  );
-
-  useEffect(() => {
-    const fetchOwnedNft = async () => {
-      setIsLoading(true);
-      setErrMsg("");
-      try {
-        const userOwnedNfts = await nftDropContract.getOwned(walletAddress);
-        setNfts(userOwnedNfts);
-      } catch (error) {
-        setNfts([]);
-        setErrMsg(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    if (walletAddress) {
-      fetchOwnedNft();
-    } else {
-      setErrMsg("Please connect to wallet to see NFTs");
-    }
-  }, [walletAddress, nftDropContract]);
+  const onClickGenerator = (id: BigNumber) => () => onStake(id);
 
   const renderCardContent = () => {
     if (nfts.length < 1 && !isLoading) {
@@ -81,7 +57,12 @@ export const UnstakedNFT = () => {
         ) : null}
         <SimpleGrid minChildWidth="120px" spacing="50px">
           {nfts.map((item, index) => (
-            <NFT key={index} nftImg={item.metadata.image} staked={false} />
+            <NFT
+              key={index}
+              nftImg={item.metadata.image}
+              staked={false}
+              onClick={onClickGenerator(item.metadata.id)}
+            />
           ))}
         </SimpleGrid>
       </>
@@ -99,9 +80,7 @@ export const UnstakedNFT = () => {
           Unstaked
         </Text>
       </Header>
-      <Content>
-        {errMsg ? <Text color="red">{errMsg}</Text> : renderCardContent()}
-      </Content>
+      <Content>{renderCardContent()}</Content>
     </Card>
   );
 };

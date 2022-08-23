@@ -3,6 +3,7 @@ import "@/styles/globals.scss";
 import { ChakraProvider } from "@chakra-ui/react";
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
 import Head from "next/head";
+import { Toaster } from "react-hot-toast";
 
 import { CoreLayout } from "@/common/components/CoreLayout";
 import { ChakraFonts } from "@/common/components/CustomFont";
@@ -28,6 +29,7 @@ export const App = ({ Component, pageProps }) => {
         <Layout>
           <Component {...pageProps} />
         </Layout>
+        <Toaster />
       </ThirdwebProvider>
     </ChakraProvider>
   );
