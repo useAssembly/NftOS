@@ -1,15 +1,17 @@
-import { Box, Flex, HStack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  HStack,
+  SimpleGrid,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 
 import { Card, Content, Header } from "@/common/components/Card";
 import { UpArrowIcon } from "@/common/components/CustomIcon";
 import { NFT } from "@/common/components/NFT";
 
-const nftImages = [
-  "/assets/images/black_circle.png",
-  "/assets/images/nft3.png",
-  "/assets/images/nft4.png",
-];
-export const StakedNFT = () => {
+export const StakedNFT = ({ isLoadingNfts, stakedNfts }) => {
   return (
     <Card width="600px">
       <Header mb={4}>
@@ -23,19 +25,23 @@ export const StakedNFT = () => {
         </HStack>
       </Header>
       <Content>
-        <Flex justifyContent="space-around">
-          {Array(3)
-            .fill(0)
-            .map((_, index) => (
+        <SimpleGrid minChildWidth="120px" spacing="50px">
+          {isLoadingNfts ? (
+            <Center height={192}>
+              <Spinner color="gray.600" />
+            </Center>
+          ) : (
+            stakedNfts.map((nft, index) => (
               <NFT
                 key={index}
                 staked
-                nftImg={nftImages[index]}
+                nftImg={nft.metadata.image}
                 stakedAmount={0.3}
                 tokenName="AFP"
               />
-            ))}
-        </Flex>
+            ))
+          )}
+        </SimpleGrid>
       </Content>
     </Card>
   );

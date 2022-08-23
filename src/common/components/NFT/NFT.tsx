@@ -32,7 +32,13 @@ export const NFT = ({
   return (
     <VStack borderTopRadius={16} position="relative" spacing="-1px">
       <Box height={IMAGE_SIZE}>
-        <Image alt="nft" height={IMAGE_SIZE} src={nftImg} width={IMAGE_SIZE} />
+        <Image
+          alt="nft"
+          height={IMAGE_SIZE}
+          src={nftImg}
+          style={{ borderTopRightRadius: "16px", borderTopLeftRadius: "16px" }}
+          width={IMAGE_SIZE}
+        />
       </Box>
       <Box rowGap={1} width="140px">
         <Button
