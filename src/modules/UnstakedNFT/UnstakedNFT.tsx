@@ -4,34 +4,35 @@ import {
   AlertIcon,
   AlertTitle,
   Box,
+  Center,
   CloseButton,
   Flex,
+  SimpleGrid,
+  Spinner,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import { BigNumber } from "ethers";
 
-import { Card, Header, Content } from "@/common/components/Card";
+import { Card, Content, Header } from "@/common/components/Card";
 import { NFT } from "@/common/components/NFT";
 
-const nftImages = [
-  "/assets/images/black_circle.png",
-  "/assets/images/nft1.png",
-  "/assets/images/nft2.png",
-];
-
-export const UnstakedNFT = () => {
+type UnStakedNFTProps = {
+  isLoading: boolean;
+  nfts: any[];
+  onStake: (id: BigNumber) => void;
+};
+export const UnstakedNFT = ({ nfts, isLoading, onStake }: UnStakedNFTProps) => {
   const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
+  const onClickGenerator = (id: BigNumber) => () => onStake(id);
 
-  return (
-    <Card width="600px">
-      <Header mb={4}>
-        <Text color="black" fontWeight={600}>
-          Unstaked
-        </Text>
-      </Header>
-      <Content>
-        {isOpen ? (
+  const renderCardContent = () => {
+    if (nfts.length < 1 && !isLoading) {
+      return <Text>Not owned any NFTs</Text>;
+    }
+    return !isLoading ? (
+      <>
+        {isOpen && nfts.length > 0 ? (
           <Alert
             justifyContent="space-between"
             mb={4}
@@ -54,14 +55,32 @@ export const UnstakedNFT = () => {
             />
           </Alert>
         ) : null}
-        <Flex justifyContent="space-around">
-          {Array(3)
-            .fill(0)
-            .map((_, index) => (
-              <NFT key={index} nftImg={nftImages[index]} staked={false} />
-            ))}
-        </Flex>
-      </Content>
+        <SimpleGrid minChildWidth="120px" spacing="50px">
+          {nfts.map((item, index) => (
+            <NFT
+              key={index}
+              nftImg={item.metadata.image}
+              staked={false}
+              onClick={onClickGenerator(item.metadata.id)}
+            />
+          ))}
+        </SimpleGrid>
+      </>
+    ) : (
+      <Center marginY={16}>
+        <Spinner />
+      </Center>
+    );
+  };
+
+  return (
+    <Card width="600px">
+      <Header mb={4}>
+        <Text color="black" fontWeight={600}>
+          Unstaked
+        </Text>
+      </Header>
+      <Content>{renderCardContent()}</Content>
     </Card>
   );
 };
