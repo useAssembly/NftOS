@@ -8,7 +8,6 @@ import { PageHead } from "@/common/components/PageHead";
 import { WalletConnect } from "@/common/components/WalletConnect";
 import { NFT_ADDRESS, STAKING_ADDRESS } from "@/common/configs";
 import { loadStakedNfts } from "@/common/functions/stake";
-import { useLoadClaimableRewards } from "@/common/hooks/useLoadClaimableRewards";
 
 import { StakedNFT } from "@/modules/StakedNFT";
 import { StatisticCard } from "@/modules/StatisticCard";
@@ -24,7 +23,9 @@ const StakePage = () => {
   const [stakedNfts, setStakedNfts] = useState<any[]>([]);
   const [ownedNFTs, setOwnedNFTs] = useState<any[]>([]);
   const [isLoadingNfts, setIsLoadingNfts] = useState<boolean>(true);
-  const claimableRewards = useLoadClaimableRewards({ address, contract });
+  const [claimableRewards, setClaimableRewards] = useState<BigNumber>(
+    BigNumber.from(0)
+  );
   const claimableRewardsFormatted = ethers.utils.formatUnits(
     claimableRewards,
     18
@@ -45,16 +46,22 @@ const StakePage = () => {
     }
   }, [address, nftDropContract]);
 
+  const loadClaimableRewards = useCallback(async () => {
+    if (!contract || !address) return;
+    const cr = await contract?.call("availableRewards", address);
+    setClaimableRewards(cr);
+  }, [address, contract]);
+
   const fetchNftData = useCallback(() => {
     setIsLoadingNfts(true);
-    Promise.all([loadNfts(), loadOwnedNfts()])
+    Promise.all([loadNfts(), loadOwnedNfts(), loadClaimableRewards()])
       .catch((error) => {
         toast.error(error.message);
       })
       .finally(() => {
         setIsLoadingNfts(false);
       });
-  }, [loadNfts, loadOwnedNfts]);
+  }, [loadNfts, loadOwnedNfts, loadClaimableRewards]);
 
   const triggerStakeNft = (id: BigNumber) => {
     async function stakeNft(id: BigNumber) {
@@ -111,7 +118,8 @@ const StakePage = () => {
   async function triggerClaimRewards() {
     async function claimRewards(): Promise<any> {
       setIsClaimingRewards(true);
-      return contract?.call("claimRewards");
+      await contract?.call("claimRewards");
+      fetchNftData();
     }
 
     toast.promise(claimRewards(), {
@@ -169,7 +177,7 @@ const StakePage = () => {
                   label="Total Staked"
                   mainStats={`${percentageOfStakedNfts}%`}
                 />
-                <StatisticCard label="Daily returns" mainStats="1 $AFP" />
+                <StatisticCard label="Daily returns" mainStats="86,400 $AFP" />
                 <StatisticCard
                   footerStats={`Estimated: ${claimableRewardsFormatted} $AFP`}
                   label="Your staked"
