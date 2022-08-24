@@ -29,6 +29,7 @@ const StakePage = () => {
     claimableRewards,
     18
   );
+  const [isClaimingRewards, setIsClaimingRewards] = useState<boolean>(false);
 
   const loadNfts = useCallback(async () => {
     await loadStakedNfts(contract, nftDropContract, setStakedNfts, address);
@@ -107,6 +108,29 @@ const StakePage = () => {
     });
   };
 
+  async function triggerClaimRewards() {
+    async function claimRewards(): Promise<any> {
+      setIsClaimingRewards(true);
+      return contract?.call("claimRewards");
+    }
+
+    toast.promise(claimRewards(), {
+      loading: "Claiming Rewards",
+      success: () => {
+        setIsClaimingRewards(false);
+        return "Successfully claimed rewards!";
+      },
+      error: (error) => {
+        console.error(error);
+        setIsClaimingRewards(false);
+        if (error.reason.includes("transfer amount exceeds balance")) {
+          return "Contact Administrator - Balance too low";
+        }
+        return "Contact Administrator";
+      },
+    });
+  }
+
   useEffect(() => {
     if (!contract) return;
     if (address) {
@@ -168,8 +192,11 @@ const StakePage = () => {
                   onStake={triggerStakeNft}
                 />
                 <StakedNFT
+                  claimableRewards={claimableRewardsFormatted}
+                  isClaimingRewards={isClaimingRewards}
                   isLoadingNfts={isLoadingNfts}
                   stakedNfts={stakedNfts}
+                  triggerClaimRewards={triggerClaimRewards}
                   onUnstake={triggerUnstakeNft}
                 />
               </Flex>
