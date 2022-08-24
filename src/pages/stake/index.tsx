@@ -1,6 +1,6 @@
 import { Box, Center, Flex, Heading, HStack, Spinner } from "@chakra-ui/react";
 import { useAddress, useContract, useNFTDrop } from "@thirdweb-dev/react";
-import { BigNumber } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -8,6 +8,7 @@ import { PageHead } from "@/common/components/PageHead";
 import { WalletConnect } from "@/common/components/WalletConnect";
 import { NFT_ADDRESS, STAKING_ADDRESS } from "@/common/configs";
 import { loadStakedNfts } from "@/common/functions/stake";
+import { useLoadClaimableRewards } from "@/common/hooks/useLoadClaimableRewards";
 
 import { StakedNFT } from "@/modules/StakedNFT";
 import { StatisticCard } from "@/modules/StatisticCard";
@@ -23,6 +24,11 @@ const StakePage = () => {
   const [stakedNfts, setStakedNfts] = useState<any[]>([]);
   const [ownedNFTs, setOwnedNFTs] = useState<any[]>([]);
   const [isLoadingNfts, setIsLoadingNfts] = useState<boolean>(true);
+  const claimableRewards = useLoadClaimableRewards({ address, contract });
+  const claimableRewardsFormatted = ethers.utils.formatUnits(
+    claimableRewards,
+    18
+  );
 
   const loadNfts = useCallback(async () => {
     await loadStakedNfts(contract, nftDropContract, setStakedNfts, address);
@@ -109,7 +115,7 @@ const StakePage = () => {
   }, [address, contract, nftDropContract, fetchNftData]);
 
   const percentageOfStakedNfts =
-    (stakedNfts.length / (stakedNfts.length + ownedNFTs.length) ?? 0) * 100;
+    (stakedNfts.length / (stakedNfts.length + ownedNFTs.length)) * 100 || 0;
 
   return (
     <div>
@@ -141,9 +147,9 @@ const StakePage = () => {
                 />
                 <StatisticCard label="Daily returns" mainStats="1 $AFP" />
                 <StatisticCard
-                  footerStats="Estimated: 3 $AFP"
+                  footerStats={`Estimated: ${claimableRewardsFormatted} $AFP`}
                   label="Your staked"
-                  mainStats="3 $AFP"
+                  mainStats={`${claimableRewardsFormatted} $AFP`}
                 />
               </Flex>
             </Box>
