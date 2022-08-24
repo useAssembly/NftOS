@@ -7,7 +7,6 @@ import {
   Center,
   CloseButton,
   Flex,
-  SimpleGrid,
   Spinner,
   Text,
   useDisclosure,
@@ -42,8 +41,12 @@ export const UnstakedNFT = ({ nfts, isLoading, onStake }: UnStakedNFTProps) => {
             <Flex>
               <AlertIcon />
               <Box>
-                <AlertTitle>You could be making 3.0 $AFP daily.</AlertTitle>
-                <AlertDescription>01h 32m in next payout</AlertDescription>
+                <AlertTitle color="gray.700">
+                  You could be making 3.0 $AFP daily.
+                </AlertTitle>
+                <AlertDescription color="gray.700">
+                  01h 32m in next payout
+                </AlertDescription>
               </Box>
             </Flex>
             <CloseButton
@@ -55,7 +58,7 @@ export const UnstakedNFT = ({ nfts, isLoading, onStake }: UnStakedNFTProps) => {
             />
           </Alert>
         ) : null}
-        <SimpleGrid minChildWidth="120px" spacing="50px">
+        <Flex flexWrap={"wrap"} gap={"20px 50px"}>
           {nfts.map((item, index) => (
             <NFT
               key={index}
@@ -64,7 +67,23 @@ export const UnstakedNFT = ({ nfts, isLoading, onStake }: UnStakedNFTProps) => {
               onClick={onClickGenerator(item.metadata.id)}
             />
           ))}
-        </SimpleGrid>
+          {nfts.map((item, index) => (
+            <NFT
+              key={index}
+              nftImg={item.metadata.image}
+              staked={false}
+              onClick={onClickGenerator(item.metadata.id)}
+            />
+          ))}
+          {nfts.map((item, index) => (
+            <NFT
+              key={index}
+              nftImg={item.metadata.image}
+              staked={false}
+              onClick={onClickGenerator(item.metadata.id)}
+            />
+          ))}
+        </Flex>
       </>
     ) : (
       <Center marginY={16}>

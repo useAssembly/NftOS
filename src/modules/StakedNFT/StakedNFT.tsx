@@ -1,11 +1,4 @@
-import {
-  Box,
-  Center,
-  HStack,
-  SimpleGrid,
-  Spinner,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Center, HStack, Spinner, Text, Flex } from "@chakra-ui/react";
 import { BigNumber } from "ethers";
 
 import { Card, Content, Header } from "@/common/components/Card";
@@ -27,13 +20,13 @@ export const StakedNFT = ({ isLoadingNfts, stakedNfts, onUnstake }) => {
         </HStack>
       </Header>
       <Content>
-        <SimpleGrid minChildWidth="120px" spacing="50px">
-          {isLoadingNfts ? (
-            <Center height={192}>
-              <Spinner color="gray.600" />
-            </Center>
-          ) : (
-            stakedNfts.map((nft, index) => (
+        {isLoadingNfts ? (
+          <Center height={192}>
+            <Spinner />
+          </Center>
+        ) : (
+          <Flex flexWrap={"wrap"} gap={"20px 50px"}>
+            {stakedNfts.map((nft, index) => (
               <NFT
                 key={index}
                 staked
@@ -42,9 +35,9 @@ export const StakedNFT = ({ isLoadingNfts, stakedNfts, onUnstake }) => {
                 tokenName="AFP"
                 onClick={onClickGenerator(nft.metadata.id)}
               />
-            ))
-          )}
-        </SimpleGrid>
+            ))}
+          </Flex>
+        )}
       </Content>
     </Card>
   );
