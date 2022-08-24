@@ -82,6 +82,25 @@ const StakePage = () => {
     });
   };
 
+  const triggerUnstakeNft = (id: BigNumber) => {
+    async function unstakeNft(id: BigNumber) {
+      setIsLoadingNfts(true);
+      await contract?.call("withdraw", id);
+      fetchNftData();
+    }
+
+    toast.promise(unstakeNft(id), {
+      loading: "Unstaking nft",
+      success: () => {
+        return "Successfully unstaken nft!";
+      },
+      error: (error) => {
+        console.error(error);
+        return "Contact Administrator";
+      },
+    });
+  };
+
   useEffect(() => {
     if (!contract) return;
     if (address) {
@@ -142,6 +161,7 @@ const StakePage = () => {
                 <StakedNFT
                   isLoadingNfts={isLoadingNfts}
                   stakedNfts={stakedNfts}
+                  onUnstake={triggerUnstakeNft}
                 />
               </Flex>
             </Box>
