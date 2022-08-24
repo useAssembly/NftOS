@@ -108,6 +108,9 @@ const StakePage = () => {
     }
   }, [address, contract, nftDropContract, fetchNftData]);
 
+  const percentageOfStakedNfts =
+    (stakedNfts.length / (stakedNfts.length + ownedNFTs.length) ?? 0) * 100;
+
   return (
     <div>
       <PageHead
@@ -132,17 +135,13 @@ const StakePage = () => {
                 gap={3}
               >
                 <StatisticCard
-                  footerStats="1052 staked"
+                  footerStats={`${stakedNfts.length} staked`}
                   label="Total Staked"
-                  mainStats="60.6%"
+                  mainStats={`${percentageOfStakedNfts}%`}
                 />
+                <StatisticCard label="Daily returns" mainStats="1 $AFP" />
                 <StatisticCard
-                  footerStats="01h 22m to next payout"
-                  label="Daily returns"
-                  mainStats="1 $AFP"
-                />
-                <StatisticCard
-                  footerStats="Estimated: 3 $AIR"
+                  footerStats="Estimated: 3 $AFP"
                   label="Your staked"
                   mainStats="3 $AFP"
                 />
