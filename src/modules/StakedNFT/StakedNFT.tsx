@@ -6,12 +6,14 @@ import {
   Spinner,
   Text,
 } from "@chakra-ui/react";
+import { BigNumber } from "ethers";
 
 import { Card, Content, Header } from "@/common/components/Card";
 import { UpArrowIcon } from "@/common/components/CustomIcon";
 import { NFT } from "@/common/components/NFT";
 
-export const StakedNFT = ({ isLoadingNfts, stakedNfts }) => {
+export const StakedNFT = ({ isLoadingNfts, stakedNfts, onUnstake }) => {
+  const onClickGenerator = (id: BigNumber) => () => onUnstake(id);
   return (
     <Card width="600px">
       <Header mb={4}>
@@ -38,6 +40,7 @@ export const StakedNFT = ({ isLoadingNfts, stakedNfts }) => {
                 nftImg={nft.metadata.image}
                 stakedAmount={0.3}
                 tokenName="AFP"
+                onClick={onClickGenerator(nft.metadata.id)}
               />
             ))
           )}
