@@ -67,22 +67,6 @@ export const UnstakedNFT = ({ nfts, isLoading, onStake }: UnStakedNFTProps) => {
               onClick={onClickGenerator(item.metadata.id)}
             />
           ))}
-          {nfts.map((item, index) => (
-            <NFT
-              key={index}
-              nftImg={item.metadata.image}
-              staked={false}
-              onClick={onClickGenerator(item.metadata.id)}
-            />
-          ))}
-          {nfts.map((item, index) => (
-            <NFT
-              key={index}
-              nftImg={item.metadata.image}
-              staked={false}
-              onClick={onClickGenerator(item.metadata.id)}
-            />
-          ))}
         </Flex>
       </>
     ) : (
