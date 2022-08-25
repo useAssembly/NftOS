@@ -30,8 +30,13 @@ export const NFT = ({
 }: NFTProps) => {
   const [gray600] = useToken("colors", ["gray.600"]);
   return (
-    <VStack borderTopRadius={16} position="relative" spacing="-1px">
-      <Box height={IMAGE_SIZE}>
+    <VStack position="relative" spacing="-1px">
+      <Box
+        borderColor={"gray.200"}
+        borderTopRadius={16}
+        borderWidth={"1px"}
+        height={IMAGE_SIZE}
+      >
         <Image
           alt="nft"
           height={IMAGE_SIZE}
@@ -40,7 +45,7 @@ export const NFT = ({
           width={IMAGE_SIZE}
         />
       </Box>
-      <Box rowGap={1} width="140px">
+      <Box rowGap={1} style={{ marginTop: 0 }} width="140px">
         <Button
           color="gray.700"
           height={staked ? 9 : 10}
