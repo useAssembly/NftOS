@@ -65,7 +65,7 @@ export const MintCard: FunctionComponent<Props> = ({
 
   const status = mintStatus;
   return (
-    <Card minWidth={476}>
+    <Card minWidth={{ base: "full", md: 476 }}>
       <Header>{info[status].icon}</Header>
       <Content>
         <Heading pb={1}>{info[status].heading}</Heading>
