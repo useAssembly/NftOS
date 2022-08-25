@@ -1,4 +1,12 @@
-import { Box, Center, HStack, Spinner, Text, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  HStack,
+  Spinner,
+  Text,
+  Flex,
+  SimpleGrid,
+} from "@chakra-ui/react";
 import { BigNumber } from "ethers";
 
 import { Card, Content, Header } from "@/common/components/Card";
@@ -8,7 +16,7 @@ import { NFT } from "@/common/components/NFT";
 export const StakedNFT = ({ isLoadingNfts, stakedNfts, onUnstake }) => {
   const onClickGenerator = (id: BigNumber) => () => onUnstake(id);
   return (
-    <Card width="600px">
+    <Card width={{ base: "100%", lg: "600px" }}>
       <Header mb={4}>
         <HStack>
           <Box>
@@ -20,13 +28,13 @@ export const StakedNFT = ({ isLoadingNfts, stakedNfts, onUnstake }) => {
         </HStack>
       </Header>
       <Content>
-        {isLoadingNfts ? (
-          <Center height={192}>
-            <Spinner />
-          </Center>
-        ) : (
-          <Flex flexWrap={"wrap"} gap={"20px 50px"}>
-            {stakedNfts.map((nft, index) => (
+        <SimpleGrid minChildWidth="132px" spacing="16px">
+          {isLoadingNfts ? (
+            <Center height={192}>
+              <Spinner color="gray.600" />
+            </Center>
+          ) : (
+            stakedNfts.map((nft, index) => (
               <NFT
                 key={index}
                 staked
@@ -35,9 +43,9 @@ export const StakedNFT = ({ isLoadingNfts, stakedNfts, onUnstake }) => {
                 tokenName="AFP"
                 onClick={onClickGenerator(nft.metadata.id)}
               />
-            ))}
-          </Flex>
-        )}
+            ))
+          )}
+        </SimpleGrid>
       </Content>
     </Card>
   );

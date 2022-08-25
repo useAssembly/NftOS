@@ -115,18 +115,22 @@ const StakePage = () => {
         description="Mint page description"
         name="Mint"
       />
-      <Flex flexDirection={"column"} pt={3} px={"148px"}>
+      <Flex flexDirection={"column"} pt={3} px={{ base: "20px", lg: "148px" }}>
         {isLoading ? (
-          <Heading size={"2xl"}>
+          <Heading size={{ base: "xl", md: "2xl" }}>
             Loading <Spinner />
           </Heading>
         ) : address ? (
           <>
             <Box mb={12}>
-              <Heading mb={4} size={"2xl"}>
+              <Heading mb={4} size={{ base: "xl", md: "2xl" }}>
                 Your $AFP stats
               </Heading>
-              <HStack spacing={3}>
+              <Flex
+                flexDir={{ base: "column", md: "row" }}
+                flexWrap="wrap"
+                gap={3}
+              >
                 <StatisticCard
                   footerStats="1052 staked"
                   label="Total Staked"
@@ -142,7 +146,7 @@ const StakePage = () => {
                   label="Your staked"
                   mainStats="3 $AFP"
                 />
-              </HStack>
+              </Flex>
             </Box>
             <Box mb={12}>
               <Heading mb={4} size={"2xl"}>
@@ -150,7 +154,7 @@ const StakePage = () => {
               </Heading>
               <Flex
                 align={"flex-start"}
-                flexDir={{ md: "row", sm: "column" }}
+                flexDir={{ lg: "row", base: "column" }}
                 gap={4}
               >
                 <UnstakedNFT

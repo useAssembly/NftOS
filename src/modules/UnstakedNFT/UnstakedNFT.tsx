@@ -7,6 +7,7 @@ import {
   Center,
   CloseButton,
   Flex,
+  SimpleGrid,
   Spinner,
   Text,
   useDisclosure,
@@ -58,7 +59,7 @@ export const UnstakedNFT = ({ nfts, isLoading, onStake }: UnStakedNFTProps) => {
             />
           </Alert>
         ) : null}
-        <Flex flexWrap={"wrap"} gap={"20px 50px"}>
+        <SimpleGrid minChildWidth="132px" spacing="16px">
           {nfts.map((item, index) => (
             <NFT
               key={index}
@@ -67,7 +68,7 @@ export const UnstakedNFT = ({ nfts, isLoading, onStake }: UnStakedNFTProps) => {
               onClick={onClickGenerator(item.metadata.id)}
             />
           ))}
-        </Flex>
+        </SimpleGrid>
       </>
     ) : (
       <Center marginY={16}>
@@ -77,7 +78,7 @@ export const UnstakedNFT = ({ nfts, isLoading, onStake }: UnStakedNFTProps) => {
   };
 
   return (
-    <Card width="600px">
+    <Card width={{ base: "100%", lg: "600px" }}>
       <Header mb={4}>
         <Text color="black" fontWeight={600}>
           Unstaked
