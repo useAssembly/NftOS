@@ -13,11 +13,15 @@ export default function Home() {
         description="Home page description"
         name="Home"
       />
-      <Flex flexDirection={"column"} pt="52px" px="148px">
-        <Heading fontWeight={600} mb={4} size={"2xl"}>
+      <Flex
+        flexDirection={"column"}
+        pt={{ base: "24px", lg: "52px" }}
+        px={{ base: "20px", lg: "148px" }}
+      >
+        <Heading fontWeight={600} mb={4} size={{ base: "xl", md: "2xl" }}>
           Where do you want to go?
         </Heading>
-        <HStack spacing={3}>
+        <Flex flexDir={{ base: "column", md: "row" }} gap={3}>
           <PageLink
             description="Mint new NFTs"
             icon={<LightningIcon />}
@@ -30,7 +34,7 @@ export default function Home() {
             label="Stake"
             linkHref="/stake"
           />
-        </HStack>
+        </Flex>
       </Flex>
     </div>
   );

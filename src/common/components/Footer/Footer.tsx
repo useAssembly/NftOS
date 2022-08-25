@@ -9,7 +9,7 @@ export const Footer = () => (
     py={4}
     width="100%"
   >
-    <Text color="gray.400" pl="148px" size="md">
+    <Text color="gray.400" pl={{ base: "20px", lg: "148px" }} size="md">
       © Airfoil nftOS
     </Text>
   </Box>

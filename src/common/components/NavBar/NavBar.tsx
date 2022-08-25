@@ -15,7 +15,7 @@ export const NavBar = () => {
         borderBottom="1px"
         borderColor="gray.300"
         mb={!isHomePage ? 0 : 4} // If home page, add more margin bottom
-        pl="148px"
+        pl={{ base: "20px", lg: "148px" }}
         py={4}
       >
         <Text fontSize="xl" textTransform="capitalize">
@@ -25,7 +25,7 @@ export const NavBar = () => {
       {!isHomePage ? (
         <Box py={4}>
           <Link href={"/"}>
-            <Text cursor="pointer" pl="148px">
+            <Text cursor="pointer" pl={{ base: "20px", lg: "148px" }}>
               {"<- Back home"}
             </Text>
           </Link>
