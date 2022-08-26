@@ -1,4 +1,4 @@
-import { Flex, Heading, HStack } from "@chakra-ui/react";
+import { Flex, Heading, useBreakpointValue } from "@chakra-ui/react";
 
 import { LightningIcon, UpArrowIcon } from "@/common/components/CustomIcon";
 import { PageHead } from "@/common/components/PageHead";
@@ -6,6 +6,7 @@ import { PageHead } from "@/common/components/PageHead";
 import { PageLink } from "@/modules/PageLink";
 
 export default function Home() {
+  const isFull = useBreakpointValue({ base: true, md: false });
   return (
     <div className="h-full">
       <PageHead
@@ -24,12 +25,14 @@ export default function Home() {
         <Flex flexDir={{ base: "column", md: "row" }} gap={3}>
           <PageLink
             description="Mint new NFTs"
+            full={isFull}
             icon={<LightningIcon />}
             label="Mint"
             linkHref="/mint"
           />
           <PageLink
             description="Earn funds"
+            full={isFull}
             icon={<UpArrowIcon />}
             label="Stake"
             linkHref="/stake"

@@ -9,6 +9,7 @@ interface Props {
   label: string;
   description: string;
   size?: "sm" | "md";
+  full?: boolean;
 }
 
 export const PageLink: FunctionComponent<Props> = ({
@@ -17,7 +18,9 @@ export const PageLink: FunctionComponent<Props> = ({
   label,
   description,
   size = "md",
+  full = false,
 }) => {
+  const fullWidthProps = full ? { width: "full" } : {};
   return (
     <Link href={linkHref}>
       <Card
@@ -25,6 +28,7 @@ export const PageLink: FunctionComponent<Props> = ({
         paddingX={3}
         paddingY={size === "md" ? 3 : 2}
         width={size === "md" ? "200px" : "fit-content"}
+        {...fullWidthProps}
       >
         {size === "md" ? (
           <>
