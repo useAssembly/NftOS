@@ -38,7 +38,7 @@ const MintPage = () => {
         description="Mint page description"
         name="Mint"
       />
-      <Center height={"calc(100vh - 176px)"}>
+      <Center height={"calc(100vh - 176px)"} px={{ base: 5, md: 0 }}>
         {address ? (
           <MintCard
             mintStatus={mintStatus}

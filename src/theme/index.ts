@@ -1,5 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 
+import { breakpoints } from "./breakpoints";
 import { colors } from "./colors";
 import { Button } from "./components/button";
 import { Heading } from "./components/heading";
@@ -16,6 +17,7 @@ const theme = extendTheme({
   },
   fonts,
   colors,
+  breakpoints,
 });
 
 export default theme;
