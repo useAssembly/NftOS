@@ -1,6 +1,10 @@
 import { Flex, Heading, useBreakpointValue } from "@chakra-ui/react";
 
-import { LightningIcon, UpArrowIcon } from "@/common/components/CustomIcon";
+import {
+  LightningIcon,
+  TickIcon,
+  UpArrowIcon,
+} from "@/common/components/CustomIcon";
 import { PageHead } from "@/common/components/PageHead";
 
 import { PageLink } from "@/modules/PageLink";
@@ -36,6 +40,13 @@ export default function Home() {
             icon={<UpArrowIcon />}
             label="Stake"
             linkHref="/stake"
+          />
+          <PageLink
+            description="Deploy new NFTs"
+            full={isFull}
+            icon={<TickIcon height={24} width={24} />}
+            label="Deploy"
+            linkHref="/deploy"
           />
         </Flex>
       </Flex>
