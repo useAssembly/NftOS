@@ -15,7 +15,7 @@ export const StatisticCard: FunctionComponent<Props> = ({
   footerStats,
 }) => {
   return (
-    <Card px={6} py={5}>
+    <Card minHeight={"152px"} px={6} py={5}>
       <Header minWidth={177} textAlign="left">
         <Text color="gray.700" fontWeight={500} size="sm">
           {label}
