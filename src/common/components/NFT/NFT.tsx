@@ -30,7 +30,7 @@ export const NFT = ({
 }: NFTProps) => {
   const [gray600] = useToken("colors", ["gray.600"]);
   return (
-    <VStack position="relative" spacing="-1px">
+    <VStack position="relative" spacing="-1px" width="132px">
       <Box
         borderColor={"gray.200"}
         borderTopRadius={16}
