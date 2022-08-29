@@ -48,6 +48,12 @@ export default function Home() {
             label="Deploy"
             linkHref="/deploy"
           />
+          <PageLink
+            description="Mint lootbox"
+            icon={<UpArrowIcon />}
+            label="Lootbox"
+            linkHref="/lootbox"
+          />
         </Flex>
       </Flex>
     </div>
