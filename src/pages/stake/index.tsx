@@ -147,7 +147,9 @@ const StakePage = () => {
   }, [address, contract, nftDropContract, fetchNftData]);
 
   const percentageOfStakedNfts =
-    (stakedNfts.length / (stakedNfts.length + ownedNFTs.length)) * 100 || 0;
+    Math.round(
+      (stakedNfts.length / (stakedNfts.length + ownedNFTs.length)) * 100 * 100
+    ) / 100 || 0;
 
   return (
     <div>
