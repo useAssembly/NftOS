@@ -1,6 +1,6 @@
 import { Box, Center, Flex, Heading, HStack, Spinner } from "@chakra-ui/react";
 import { useAddress, useContract, useNFTDrop } from "@thirdweb-dev/react";
-import { BigNumber } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -23,6 +23,14 @@ const StakePage = () => {
   const [stakedNfts, setStakedNfts] = useState<any[]>([]);
   const [ownedNFTs, setOwnedNFTs] = useState<any[]>([]);
   const [isLoadingNfts, setIsLoadingNfts] = useState<boolean>(true);
+  const [claimableRewards, setClaimableRewards] = useState<BigNumber>(
+    BigNumber.from(0)
+  );
+  const claimableRewardsFormatted = ethers.utils.formatUnits(
+    claimableRewards,
+    18
+  );
+  const [isClaimingRewards, setIsClaimingRewards] = useState<boolean>(false);
 
   const loadNfts = useCallback(async () => {
     await loadStakedNfts(contract, nftDropContract, setStakedNfts, address);
@@ -38,16 +46,22 @@ const StakePage = () => {
     }
   }, [address, nftDropContract]);
 
+  const loadClaimableRewards = useCallback(async () => {
+    if (!contract || !address) return;
+    const cr = await contract?.call("availableRewards", address);
+    setClaimableRewards(cr);
+  }, [address, contract]);
+
   const fetchNftData = useCallback(() => {
     setIsLoadingNfts(true);
-    Promise.all([loadNfts(), loadOwnedNfts()])
+    Promise.all([loadNfts(), loadOwnedNfts(), loadClaimableRewards()])
       .catch((error) => {
         toast.error(error.message);
       })
       .finally(() => {
         setIsLoadingNfts(false);
       });
-  }, [loadNfts, loadOwnedNfts]);
+  }, [loadNfts, loadOwnedNfts, loadClaimableRewards]);
 
   const triggerStakeNft = (id: BigNumber) => {
     async function stakeNft(id: BigNumber) {
@@ -101,12 +115,41 @@ const StakePage = () => {
     });
   };
 
+  async function triggerClaimRewards() {
+    async function claimRewards(): Promise<any> {
+      setIsClaimingRewards(true);
+      await contract?.call("claimRewards");
+      fetchNftData();
+    }
+
+    toast.promise(claimRewards(), {
+      loading: "Claiming Rewards",
+      success: () => {
+        setIsClaimingRewards(false);
+        return "Successfully claimed rewards!";
+      },
+      error: (error) => {
+        console.error(error);
+        setIsClaimingRewards(false);
+        if (error.reason.includes("transfer amount exceeds balance")) {
+          return "Contact Administrator - Balance too low";
+        }
+        return "Contact Administrator";
+      },
+    });
+  }
+
   useEffect(() => {
     if (!contract) return;
     if (address) {
       fetchNftData();
     }
   }, [address, contract, nftDropContract, fetchNftData]);
+
+  const percentageOfStakedNfts =
+    Math.round(
+      (stakedNfts.length / (stakedNfts.length + ownedNFTs.length)) * 100 * 100
+    ) / 100 || 0;
 
   return (
     <div>
@@ -132,19 +175,15 @@ const StakePage = () => {
                 gap={3}
               >
                 <StatisticCard
-                  footerStats="1052 staked"
+                  footerStats={`${stakedNfts.length} staked`}
                   label="Total Staked"
-                  mainStats="60.6%"
+                  mainStats={`${percentageOfStakedNfts}%`}
                 />
+                <StatisticCard label="Daily returns" mainStats="86,400 $AFP" />
                 <StatisticCard
-                  footerStats="01h 22m to next payout"
-                  label="Daily returns"
-                  mainStats="1 $AFP"
-                />
-                <StatisticCard
-                  footerStats="Estimated: 3 $AIR"
+                  footerStats={`Estimated: ${claimableRewardsFormatted} $AFP`}
                   label="Your staked"
-                  mainStats="3 $AFP"
+                  mainStats={`${claimableRewardsFormatted} $AFP`}
                 />
               </Flex>
             </Box>
@@ -163,8 +202,11 @@ const StakePage = () => {
                   onStake={triggerStakeNft}
                 />
                 <StakedNFT
+                  claimableRewards={claimableRewardsFormatted}
+                  isClaimingRewards={isClaimingRewards}
                   isLoadingNfts={isLoadingNfts}
                   stakedNfts={stakedNfts}
+                  triggerClaimRewards={triggerClaimRewards}
                   onUnstake={triggerUnstakeNft}
                 />
               </Flex>

@@ -6,7 +6,7 @@ import { Card, Content, Footer, Header } from "@/common/components/Card";
 interface Props {
   label: React.ReactNode;
   mainStats: React.ReactNode;
-  footerStats: React.ReactNode;
+  footerStats?: React.ReactNode;
 }
 
 export const StatisticCard: FunctionComponent<Props> = ({
@@ -15,7 +15,7 @@ export const StatisticCard: FunctionComponent<Props> = ({
   footerStats,
 }) => {
   return (
-    <Card px={6} py={5}>
+    <Card minHeight={"152px"} px={6} py={5}>
       <Header minWidth={177} textAlign="left">
         <Text color="gray.700" fontWeight={500} size="sm">
           {label}
@@ -26,11 +26,13 @@ export const StatisticCard: FunctionComponent<Props> = ({
           {mainStats}
         </Text>
       </Content>
-      <Footer minWidth={177} mt={1} textAlign="left">
-        <Text color="gray.700" fontWeight={500} opacity={0.8} size="sm">
-          {footerStats}
-        </Text>
-      </Footer>
+      {footerStats && (
+        <Footer minWidth={177} mt={1} textAlign="left">
+          <Text color="gray.700" fontWeight={500} opacity={0.8} size="sm">
+            {footerStats}
+          </Text>
+        </Footer>
+      )}
     </Card>
   );
 };
