@@ -9,12 +9,9 @@ const DeploySitePage = () => {
     <div>
       <PageHead
         append={false}
-        description="Deploy site page description"
-        name="Deployed Site"
+        description="Deploy site detail page description"
+        name="Deployed Site Detail"
       />
-      <Heading px={{ base: "20px", lg: "148px" }} size="2xl">
-        Step 3
-      </Heading>
       <Center my={4} px={4}>
         <DeployedSiteCard />
       </Center>
