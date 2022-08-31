@@ -8,6 +8,8 @@ export const NavBar = () => {
   const lastRoute = router.pathname.split("/").pop();
   const name = lastRoute ? lastRoute : "Home";
   const isHomePage = name.toLowerCase() === "home";
+  const homeLink =
+    router.route.includes("demo") && lastRoute !== "demo" ? "/demo" : "/";
 
   return (
     <>
@@ -24,7 +26,7 @@ export const NavBar = () => {
       </Box>
       {!isHomePage ? (
         <Box py={4}>
-          <Link href={"/"}>
+          <Link href={homeLink}>
             <Text cursor="pointer" pl={{ base: "20px", lg: "148px" }}>
               {"<- Back home"}
             </Text>
