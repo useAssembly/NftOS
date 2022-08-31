@@ -28,18 +28,18 @@ export default function Home() {
         </Heading>
         <Flex flexDir={{ base: "column", md: "row" }} gap={3}>
           <PageLink
-            description="Demo Playground"
+            description="Mint new NFTs"
             full={isFull}
             icon={<LightningIcon />}
-            label="Demo"
-            linkHref="/demo"
+            label="Mint"
+            linkHref="/demo/mint"
           />
           <PageLink
-            description="Deploy new NFTs"
+            description="Earn funds"
             full={isFull}
-            icon={<TickIcon height={24} width={24} />}
-            label="Deploy"
-            linkHref="/deploy"
+            icon={<UpArrowIcon />}
+            label="Stake"
+            linkHref="/demo/stake"
           />
         </Flex>
       </Flex>
