@@ -8,7 +8,6 @@ import {
   Heading,
   Input,
 } from "@chakra-ui/react";
-import Link from "next/link";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 
@@ -33,11 +32,16 @@ export const DeploySiteForm = () => {
     watch,
     setValue,
     formState: { errors },
+    handleSubmit,
   } = useForm();
   const fileRef = useRef(null);
 
   const triggerUpload = () => {
     fileRef.current.click();
+  };
+
+  const onSubmit = async (data) => {
+    console.log(data);
   };
 
   return (
@@ -91,8 +95,12 @@ export const DeploySiteForm = () => {
       </Content>
       <Footer>
         <Flex justify="end">
-          <Button width={{ base: "full", md: "auto" }}>
-            <Link href="/deploy/site">Deploy</Link>
+          <Button
+            width={{ base: "full", md: "auto" }}
+            onClick={handleSubmit(onSubmit)}
+          >
+            Deploy
+            {/* <Link href="/deploy/site">Deploy</Link> */}
           </Button>
         </Flex>
       </Footer>
