@@ -1,5 +1,6 @@
 import { Button, Heading, Text } from "@chakra-ui/react";
-import { FunctionComponent } from "react";
+import { useRouter } from "next/router";
+import { FunctionComponent, useState } from "react";
 
 import { Card, Content, Footer, Header } from "@/common/components/Card";
 import { MintIcon, TickIcon } from "@/common/components/CustomIcon";
@@ -58,12 +59,23 @@ export const MintCard: FunctionComponent<Props> = ({
   setMintStatus,
   triggerClaimNft,
 }) => {
+  const router = useRouter();
+
   const handleMinting = async () => {
     setMintStatus("pending");
     await triggerClaimNft();
   };
 
+  const navigateToStakePage = () => {
+    router.push("/demo/stake");
+  };
+
   const status = mintStatus;
+  const onClickHandler =
+    info[status].buttonLabel === "+ Stake"
+      ? navigateToStakePage
+      : handleMinting;
+
   return (
     <Card minWidth={{ base: "full", md: 476 }}>
       <Header>{info[status].icon}</Header>
@@ -77,7 +89,7 @@ export const MintCard: FunctionComponent<Props> = ({
         <Button
           isDisabled={status === "pending"}
           width="full"
-          onClick={handleMinting}
+          onClick={onClickHandler}
         >
           {info[status].buttonLabel}
         </Button>
