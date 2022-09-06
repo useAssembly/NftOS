@@ -1,12 +1,14 @@
 import { Box } from "@chakra-ui/react";
 
+import { APP_BACKGROUND_COLOR } from "@/common/configs";
+
 import { Footer } from "../Footer";
 import { NavBar } from "../NavBar";
 
 export const CoreLayout = ({ children }) => {
   return (
     <Box
-      background="linear-gradient(180deg, #E2E8F0 60.94%, rgba(226, 232, 240, 0.2) 100%), #FFFFFF"
+      background={APP_BACKGROUND_COLOR}
       minHeight="100vh"
       pb="60px"
       position="relative"
