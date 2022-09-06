@@ -3,55 +3,102 @@ import {
   Center,
   Flex,
   Heading,
-  HStack,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
   Text,
+  Th,
+  Thead,
+  Tr,
   VStack,
 } from "@chakra-ui/react";
+import { useAddress } from "@thirdweb-dev/react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import { Card, Content, Footer, Header } from "@/common/components/Card";
-
-const sites = [
-  { name: "nftmint.xyz", url: "https://nftmint.xyz" },
-  { name: "opensea.io", url: "https://opensea.io/" },
-];
+import { WalletConnect } from "@/common/components/WalletConnect";
 
 export const DeployedSiteCard = () => {
+  const address = useAddress();
+  const [pages, setPages] = useState([]);
+  useEffect(() => {
+    const getPages = async () => {
+      const response = await fetch(`/api/getPages`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ address }),
+      });
+      setPages(await response.json());
+    };
+    getPages();
+  }, [address]);
+
   return (
-    <Card maxWidth={476} minWidth={{ base: "full", md: 476 }}>
-      <Content>
-        <Header>
-          <VStack textAlign="center">
-            <Heading pb={4}>Deployed Site Details</Heading>
-            <Text>Deployment Status: Pending</Text>
-          </VStack>
-        </Header>
-        <Center>
-          <VStack>
-            {sites.map((item, i) => (
-              <HStack key={i}>
-                <Text>Site: </Text>
-                <Link passHref href={item.url}>
-                  <Text
-                    color="blue.500"
-                    cursor="pointer"
-                    decoration="underline"
-                  >
-                    {item.name}
-                  </Text>
-                </Link>
-              </HStack>
-            ))}
-          </VStack>
-        </Center>
-      </Content>
-      <Footer>
-        <Flex justify="end">
-          <Button>
-            <Link href="/">Home</Link>
-          </Button>
-        </Flex>
-      </Footer>
-    </Card>
+    <>
+      {address ? (
+        <Card maxWidth={476} minWidth={{ base: "full", md: 600 }}>
+          <Content>
+            <Header>
+              <VStack textAlign="center">
+                <Heading pb={4}>Deployed Site Details</Heading>
+              </VStack>
+            </Header>
+            <Center>
+              <VStack>
+                <TableContainer>
+                  <Table variant="simple">
+                    <TableCaption>Deployed Site Details</TableCaption>
+                    <Thead>
+                      <Tr>
+                        <Th>Site Name</Th>
+                        <Th>Deployment Status</Th>
+                        <Th>Url</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {pages.map((item, i) => (
+                        <Tr key={i}>
+                          <Td>{item.title}</Td>
+                          <Td>{item.status}</Td>
+                          <Td>
+                            {item.url ? (
+                              <Link passHref href={item.url}>
+                                <Text
+                                  color="blue.500"
+                                  cursor="pointer"
+                                  decoration="underline"
+                                >
+                                  {item.url}
+                                </Text>
+                              </Link>
+                            ) : (
+                              item.url
+                            )}
+                          </Td>
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+              </VStack>
+            </Center>
+          </Content>
+          <Footer>
+            <Flex justify="end">
+              <Button>
+                <Link href="/">Home</Link>
+              </Button>
+            </Flex>
+          </Footer>
+        </Card>
+      ) : (
+        <WalletConnect />
+      )}
+    </>
   );
 };
