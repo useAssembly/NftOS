@@ -7,7 +7,9 @@ import {
   FormLabel,
   Heading,
   Input,
+  Link,
 } from "@chakra-ui/react";
+import { useAddress } from "@thirdweb-dev/react";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 
@@ -36,12 +38,22 @@ export const DeploySiteForm = () => {
   } = useForm();
   const fileRef = useRef(null);
 
+  const address = useAddress();
+
+  console.log(address);
+
   const triggerUpload = () => {
     fileRef.current.click();
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
+    const response = await fetch(`/api/createPage`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...data, address }),
+    });
   };
 
   return (
@@ -54,7 +66,7 @@ export const DeploySiteForm = () => {
           <Wrapper>
             <FormLabel minWidth={LABEL_WIDTH}>NFT Contract Address</FormLabel>
             <Input
-              {...register("address", { required: true })}
+              {...register("nftContractAddress", { required: true })}
               isInvalid={!!errors.address}
             />
           </Wrapper>
@@ -100,7 +112,7 @@ export const DeploySiteForm = () => {
             onClick={handleSubmit(onSubmit)}
           >
             Deploy
-            {/* <Link href="/deploy/site">Deploy</Link> */}
+            <Link href="/deploy/site">Deploy</Link>
           </Button>
         </Flex>
       </Footer>

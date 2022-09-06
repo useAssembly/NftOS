@@ -2,17 +2,20 @@ import { NextApiRequest } from "next";
 
 import { dbPool } from "@/common/functions/database";
 
-const handler = async (req: NextApiRequest, response) => {
-  const query = "INSERT INTO pages(title, user_id, status) VALUES($1, $2, $3)";
+const handler = async (req: NextApiRequest, res) => {
+  const query =
+    "INSERT INTO pages(title, user_id, status, nft_contract_adress, background_color) VALUES($1, $2, $3, $4, $5)";
 
-  const values = ["testtyy", "2", "pending"];
+  const { nftContractAddress, background, siteName, address } = req.body;
 
-  dbPool.query(query, values, (err, res) => {
+  const values = [siteName, address, "pending", nftContractAddress, background];
+
+  dbPool.query(query, values, (err, response) => {
     if (err) {
       console.log(err.stack);
+      return res.status(500).send(err);
     } else {
-      console.log(res.rows[0]);
-      response.status(200).json({ status: "success" });
+      return res.status(200).json({ status: "success" });
     }
   });
 };
