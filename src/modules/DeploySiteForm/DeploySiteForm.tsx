@@ -49,13 +49,18 @@ export const DeploySiteForm = () => {
   };
 
   const onSubmit = async (data) => {
-    await fetch(`/api/createPage`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...data, address }),
-    });
+    try {
+      await fetch(`/api/createPage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...data, address }),
+      });
+    } catch (e) {
+      console.error(e);
+    }
+
     router.push("/deploy/site");
   };
 
