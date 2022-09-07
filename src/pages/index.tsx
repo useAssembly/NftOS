@@ -1,10 +1,6 @@
 import { Flex, Heading, useBreakpointValue } from "@chakra-ui/react";
 
-import {
-  LightningIcon,
-  TickIcon,
-  UpArrowIcon,
-} from "@/common/components/CustomIcon";
+import { LightningIcon, TickIcon } from "@/common/components/CustomIcon";
 import { PageHead } from "@/common/components/PageHead";
 
 import { PageLink } from "@/modules/PageLink";

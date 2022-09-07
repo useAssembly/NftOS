@@ -15,8 +15,8 @@ export default function Home() {
     <div className="h-full">
       <PageHead
         append={false}
-        description="Home page description"
-        name="Home"
+        description="Demo page description"
+        name="Demo"
       />
       <Flex
         flexDirection={"column"}
