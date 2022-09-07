@@ -13,7 +13,7 @@ const DeployProgressPage = () => {
         name="Deployed Progress"
       />
       <Heading px={{ base: "20px", lg: "148px" }} size="2xl">
-        Step 3
+        Step 4
       </Heading>
       <Center my={4} px={4}>
         <DeployProgressCard />
