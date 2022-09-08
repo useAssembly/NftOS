@@ -16,7 +16,7 @@ export const CreateNFTCard = () => {
       "_blank",
       "noopener,noreferrer"
     );
-    router.push("/deploy/info");
+    router.push("/deploy/template");
   };
   return (
     <>

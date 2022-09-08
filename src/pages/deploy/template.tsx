@@ -2,22 +2,21 @@ import { Center, Heading } from "@chakra-ui/react";
 
 import { PageHead } from "@/common/components/PageHead";
 
-import { CreateNFTCard } from "@/modules/CreateNFTCard";
-import { DeploySiteForm } from "@/modules/DeploySiteForm";
+import { ChooseTemplate } from "@/modules/ChooseTemplate/ChooseTemplate";
 
 const DeployInfo = () => {
   return (
     <div>
       <PageHead
         append={false}
-        description="Deploy info page description"
-        name="Deploy Info"
+        description="Choose Template page description"
+        name="Choose Template"
       />
       <Heading px={{ base: "20px", lg: "148px" }} size="2xl">
-        Step 3
+        Step 2
       </Heading>
       <Center my={4} px={4}>
-        <DeploySiteForm />
+        <ChooseTemplate />
       </Center>
     </div>
   );

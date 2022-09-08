@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import { CoreLayout } from "@/common/components/CoreLayout";
 import { ChakraFonts } from "@/common/components/CustomFont";
 import { PageHead } from "@/common/components/PageHead";
+import { TemplateProvider } from "@/common/providers/TemplateProvider";
 
 import theme from "@/theme";
 
@@ -26,10 +27,12 @@ export const App = ({ Component, pageProps }) => {
           />
           <PageHead />
         </Head>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-        <Toaster />
+        <TemplateProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+          <Toaster />
+        </TemplateProvider>
       </ThirdwebProvider>
     </ChakraProvider>
   );
