@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 
 import { Card, Content, Footer } from "@/common/components/Card";
 import { WalletConnect } from "@/common/components/WalletConnect";
+import { useTemplate } from "@/common/providers/TemplateProvider";
 
 const LABEL_WIDTH = 190;
 const Wrapper = ({ children }) => {
@@ -49,6 +50,8 @@ export const DeploySiteForm = () => {
     fileRef.current.click();
   };
 
+  const { template } = useTemplate();
+
   const onSubmit = async (data) => {
     try {
       await fetch(`/api/createPage`, {
@@ -56,7 +59,7 @@ export const DeploySiteForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...data, address }),
+        body: JSON.stringify({ ...data, address, template }),
       });
     } catch (e) {
       console.error(e);
