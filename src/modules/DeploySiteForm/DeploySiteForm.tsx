@@ -8,6 +8,7 @@ import {
   Heading,
   Input,
   Link,
+  Textarea,
 } from "@chakra-ui/react";
 import { useAddress } from "@thirdweb-dev/react";
 import { useRouter } from "next/router";
@@ -73,19 +74,19 @@ export const DeploySiteForm = () => {
               <Heading pb={4}>Deploy a site</Heading>
             </Center>
             <FormControl>
-              <Wrapper>
+              {/* <Wrapper>
                 <FormLabel minWidth={LABEL_WIDTH}>
                   NFT Contract Address
                 </FormLabel>
                 <Input
                   {...register("nftContractAddress", { required: true })}
-                  isInvalid={!!errors.address}
+                  isInvalid={!!errors.nftContractAddress}
                 />
               </Wrapper>
               <Wrapper>
                 <FormLabel minWidth={LABEL_WIDTH}>Background Color</FormLabel>
                 <Input type="color" {...register("background")} />
-              </Wrapper>
+              </Wrapper> */}
               <Wrapper>
                 <FormLabel minWidth={LABEL_WIDTH}>Favicon</FormLabel>
                 <Flex align="center" gap={4}>
@@ -117,6 +118,13 @@ export const DeploySiteForm = () => {
                   isInvalid={!!errors.siteName}
                 />
               </Wrapper>
+              <FormLabel minWidth={LABEL_WIDTH}>
+                Environment Variables
+              </FormLabel>
+              <Textarea
+                {...register("envVariables", { required: true })}
+                isInvalid={!!errors.envVariables}
+              />
             </FormControl>
           </Content>
           <Footer>
