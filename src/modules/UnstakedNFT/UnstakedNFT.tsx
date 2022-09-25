@@ -13,6 +13,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { BigNumber } from "ethers";
+import { useMemo } from "react";
 
 import { Card, Content, Header } from "@/common/components/Card";
 import { NFT } from "@/common/components/NFT";
@@ -26,7 +27,7 @@ export const UnstakedNFT = ({ nfts, isLoading, onStake }: UnStakedNFTProps) => {
   const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
   const onClickGenerator = (id: BigNumber) => () => onStake(id);
 
-  const renderCardContent = () => {
+  const cardContent = useMemo(() => {
     if (nfts.length < 1 && !isLoading) {
       return <Text>Not owned any NFTs</Text>;
     }
@@ -75,7 +76,8 @@ export const UnstakedNFT = ({ nfts, isLoading, onStake }: UnStakedNFTProps) => {
         <Spinner />
       </Center>
     );
-  };
+    // onClose never change
+  }, [isLoading, isOpen, nfts, onClickGenerator]);
 
   return (
     <Card width={{ base: "100%", lg: "600px" }}>
@@ -84,7 +86,7 @@ export const UnstakedNFT = ({ nfts, isLoading, onStake }: UnStakedNFTProps) => {
           Unstaked
         </Text>
       </Header>
-      <Content>{renderCardContent()}</Content>
+      <Content>{cardContent}</Content>
     </Card>
   );
 };

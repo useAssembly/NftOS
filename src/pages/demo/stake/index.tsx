@@ -63,38 +63,43 @@ const StakePage = () => {
       });
   }, [loadNfts, loadOwnedNfts, loadClaimableRewards]);
 
-  const triggerStakeNft = (id: BigNumber) => {
-    async function stakeNft(id: BigNumber) {
-      if (!address) return;
+  const triggerStakeNft = useCallback(
+    (id: BigNumber) => {
+      async function stakeNft(id: BigNumber) {
+        if (!address) return;
 
-      setIsLoadingNfts(true);
-      const isApproved = await nftDropContract?.isApproved(
-        address,
-        STAKING_ADDRESS
-      );
-      // If not approved, request approval
-      try {
-        if (!isApproved) {
-          await nftDropContract?.setApprovalForAll(STAKING_ADDRESS, true);
+        setIsLoadingNfts(true);
+        const isApproved = await nftDropContract?.isApproved(
+          address,
+          STAKING_ADDRESS
+        );
+        // If not approved, request approval
+        try {
+          if (!isApproved) {
+            await nftDropContract?.setApprovalForAll(STAKING_ADDRESS, true);
+          }
+          await contract?.call("stake", id);
+        } catch (e) {
+          toast.error(e.message);
         }
-        await contract?.call("stake", id);
-      } catch (e) {
-        toast.error(e.message);
+        fetchNftData();
       }
-      fetchNftData();
-    }
 
-    toast.promise(stakeNft(id), {
-      loading: "Staking nft",
-      success: () => {
-        return "Successfully staken nft!";
-      },
-      error: (error) => {
-        console.error(error);
-        return "Contact Administrator";
-      },
-    });
-  };
+      toast.promise(stakeNft(id), {
+        loading: "Staking nft",
+        success: () => {
+          return "Successfully staken nft!";
+        },
+        error: (error) => {
+          console.error(error);
+          return "Contact Administrator";
+        },
+      });
+    },
+    // address, contract, nftContract will change fetchNftData.
+    // Therefore, we dont need to include them in the array
+    [fetchNftData]
+  );
 
   const triggerUnstakeNft = (id: BigNumber) => {
     async function unstakeNft(id: BigNumber) {
